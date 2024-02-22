@@ -1,9 +1,3 @@
-/*
- * Copyright 2024 @xditya <https://xditya.me/github>
- * Redistribution and use in source and binary forms, with or without modification, are permitted
- * provided the copyright header is included and attributes are preserved.
- */
-
 import { Bot, GrammyError, HttpError, InlineKeyboard } from "grammy/mod.ts";
 
 import config from "$env";
