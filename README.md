@@ -15,7 +15,7 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
 ```
-git clone https://github.com/mohalicious/gemini
+git clone https://github.com/kysage1/gemini
 ```
 
 # Create ```.env``` file and edut this
