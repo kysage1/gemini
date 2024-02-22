@@ -26,7 +26,7 @@ bot.catch((err) => {
 
 async function checkJoin(user: number) {
   try {
-    const member = await bot.api.getChatMember("@BotzHub", user);
+    const member = await bot.api.getChatMember("@kysage3", user);
     return (
       member.status == "member" ||
       member.status == "creator" ||
@@ -39,10 +39,10 @@ async function checkJoin(user: number) {
 
 bot.chatType("private").command("start", async (ctx) => {
   if (ctx.match && ctx.match === "how_to_remove") {
-    await ctx.reply(`Join @BotzHub to remove this button from bots replies.`, {
+    await ctx.reply(`Join @kysage3 to remove this button from bots replies.`, {
       reply_markup: new InlineKeyboard().url(
         "Join Now!",
-        "https://t.me/BotzHub"
+        "https://t.me/kysage3"
       ),
     });
     return;
@@ -62,7 +62,7 @@ I can remember <b>your last 50 conversations</b>, making your experience with me
       `,
       reply_markup: new InlineKeyboard()
         .text("⚙️ Settings", "settings")
-        .url("🔄 Updates", "https://t.me/BotzHub")
+        .url("🔄 Updates", "https://t.me/kysage3")
         .row()
         .text("ℹ️ Information", "info"),
       parse_mode: "HTML",
@@ -83,7 +83,7 @@ I can remember <b>your last 50 conversations</b>, making your experience with me
     `,
     reply_markup: new InlineKeyboard()
       .text("⚙️ Settings", "settings")
-      .url("🔄 Updates", "https://t.me/BotzHub")
+      .url("🔄 Updates", "https://t.me/kysage3")
       .row()
       .text("ℹ️ Information", "info"),
     parse_mode: "HTML",
@@ -105,7 +105,7 @@ bot.callbackQuery("settings", async (ctx) => {
     parse_mode: "HTML",
     reply_markup: new InlineKeyboard()
       .text(userReactionMsg, "reaction_toggle")
-      .url("Updates", "https://t.me/BotzHub")
+      .url("Updates", "https://t.me/kysage3")
       .row()
       .text("👈 Back", "back"),
   });
@@ -127,7 +127,7 @@ bot.callbackQuery("reaction_toggle", async (ctx) => {
     parse_mode: "HTML",
     reply_markup: new InlineKeyboard()
       .text(userReactionMsg, "reaction_toggle")
-      .url("Updates", "https://t.me/BotzHub")
+      .url("Updates", "https://t.me/kysage3")
       .row()
       .text("👈 Back", "back"),
   });
@@ -139,7 +139,7 @@ bot.callbackQuery("info", async (ctx) => {
     caption: resp,
     parse_mode: "HTML",
     reply_markup: new InlineKeyboard()
-      .url("Updates", "https://t.me/BotzHub")
+      .url("Updates", "https://t.me/kysage3")
       .row()
       .text("👈 Back", "back"),
   });
