@@ -1,9 +1,3 @@
-/*
- * Copyright 2024 @xditya <https://xditya.me/github>
- * Redistribution and use in source and binary forms, with or without modification, are permitted
- * provided the copyright header is included and attributes are preserved.
- */
-
 import config from "$env";
 import {
   addConversation,
@@ -127,7 +121,7 @@ async function getModelInfo() {
 <b>Input Token Limit:</b> <blockquote>${resp.inputTokenLimit}</blockquote>
 <b>Output Token Limit:</b> <blockquote>${resp.outputTokenLimit}</blockquote>
 
-<b>Bot developed and hosted by @BotzHub.</b>
+<b>Bot developed and hosted by @kysage1.</b>
 `;
   } catch (err) {
     return "Could not fetch data. Try again later!";
