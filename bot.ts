@@ -38,16 +38,6 @@ async function checkJoin(user: number) {
 }
 
 bot.chatType("private").command("start", async (ctx) => {
-  if (ctx.match && ctx.match === "how_to_remove") {
-    await ctx.reply(`Join @kysage3 to remove this button from bots replies.`, {
-      reply_markup: new InlineKeyboard().url(
-        "Join Now!",
-        "https://t.me/+Iu7drwqXdjpjZjk8"
-      ),
-    });
-    return;
-  }
-
   await ctx.api.sendPhoto(
     ctx.chat!.id,
     "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/final_keyword_header.width-1600.format-webp.webp",
@@ -62,7 +52,7 @@ I can remember <b>your last 50 conversations</b>, making your experience with me
       `,
       reply_markup: new InlineKeyboard()
         .text("⚙️ Settings", "settings")
-        .url("🔄 Updates", "https://t.me/+Iu7drwqXdjpjZjk8")
+        .url("🔄 Updates", "https://t.me/kysage3")
         .row()
         .text("ℹ️ Information", "info"),
       parse_mode: "HTML",
@@ -83,7 +73,7 @@ I can remember <b>your last 50 conversations</b>, making your experience with me
     `,
     reply_markup: new InlineKeyboard()
       .text("⚙️ Settings", "settings")
-      .url("🔄 Updates", "https://t.me/+Iu7drwqXdjpjZjk8")
+      .url("🔄 Updates", "https://t.me/kysage3")
       .row()
       .text("ℹ️ Information", "info"),
     parse_mode: "HTML",
@@ -105,7 +95,7 @@ bot.callbackQuery("settings", async (ctx) => {
     parse_mode: "HTML",
     reply_markup: new InlineKeyboard()
       .text(userReactionMsg, "reaction_toggle")
-      .url("Updates", "https://t.me/+Iu7drwqXdjpjZjk8")
+      .url("Updates", "https://t.me/kysage3")
       .row()
       .text("👈 Back", "back"),
   });
@@ -127,7 +117,7 @@ bot.callbackQuery("reaction_toggle", async (ctx) => {
     parse_mode: "HTML",
     reply_markup: new InlineKeyboard()
       .text(userReactionMsg, "reaction_toggle")
-      .url("Updates"https://t.me/+Iu7drwqXdjpjZjk8")
+      .url("Updates", "https://t.me/kysage3")
       .row()
       .text("👈 Back", "back"),
   });
@@ -139,7 +129,7 @@ bot.callbackQuery("info", async (ctx) => {
     caption: resp,
     parse_mode: "HTML",
     reply_markup: new InlineKeyboard()
-      .url("Updates", "https://t.me/+Iu7drwqXdjpjZjk8")
+      .url("Updates", "https://t.me/kysage3")
       .row()
       .text("👈 Back", "back"),
   });
@@ -163,26 +153,16 @@ bot.chatType("private").on("message:text", async (ctx) => {
   await ctx.api.sendChatAction(ctx.chat!.id, "typing");
   const text = ctx.message!.text;
   const response = await getResponse(ctx.from!.id, text);
-  let buttons = new InlineKeyboard();
-  if (!(await checkJoin(ctx.from!.id))) {
-    buttons = buttons.url(
-      "Join Now",
-      `https://t.me/+Iu7drwqXdjpjZjk8`
-    );
-  }
-
   if (response.length > 4096) {
     const splitMsg = response.match(/[\s\S]{1,4096}/g) || [];
     for (const msg of splitMsg) {
       try {
         await ctx.reply(msg, {
           parse_mode: "Markdown",
-          reply_markup: buttons,
         });
       } catch (err) {
         await ctx.reply(`<blockquote>${msg}</blockquote>`, {
           parse_mode: "HTML",
-          reply_markup: buttons,
         });
       }
     }
@@ -190,12 +170,10 @@ bot.chatType("private").on("message:text", async (ctx) => {
     try {
       await ctx.reply(response, {
         parse_mode: "Markdown",
-        reply_markup: buttons,
       });
     } catch (err) {
       await ctx.reply(`<blockquote>${response}</blockquote>`, {
         parse_mode: "HTML",
-        reply_markup: buttons,
       });
     }
   }
