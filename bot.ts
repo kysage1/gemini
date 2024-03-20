@@ -148,7 +148,7 @@ bot
 
 bot.chatType("private").on("message:text", async (ctx) => {
   if (await getUserReactionSettings(ctx.from!.id)) {
-    await ctx.react("⚡");
+    await ctx.react("🍃");
   }
   await ctx.api.sendChatAction(ctx.chat!.id, "typing");
   const text = ctx.message!.text;
