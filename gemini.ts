@@ -1,16 +1,13 @@
 import config from "$env";
-import {
-  addConversation,
-  type ConversationPart,
-  getConversations,
-  resetConversation,
-} from "./db.ts";
+import { addConversation, type ConversationPart, getConversations, resetConversation } from "./db.ts";
+import fetch from "node-fetch"; // Import fetch for making HTTP requests
+import { Context } from "grammy"; // Import Context from grammy for sending images
 
 const baseUrl =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
   config.DEFAULT_API_KEY;
 
-async function getResponse(user_id: number, question: string) {
+async function getResponse(ctx: Context, user_id: number, question: string) {
   const convArray = new Array<Map<string, ConversationPart[]>>();
 
   let userConv = new Map<string, any>();
@@ -77,14 +74,19 @@ async function getResponse(user_id: number, question: string) {
       ],
     }),
   });
+
   let textResponse = "";
+  let imageResponse = ""; // Add a variable to store the image URL
+
   try {
     const resp = await response.json();
     textResponse = resp.candidates[0].content.parts[0].text;
+    imageResponse = resp.candidates[0].content.parts[1].image; // Assuming the API response includes an image URL
   } catch (err) {
     console.error("User: ", user_id, "Error: ", err);
     return "Sorry, I'm having trouble understanding you. Could you please rephrase your question?";
   }
+
   const modelConv = new Map<string, any>();
   modelConv
     .set("role", "model")
@@ -93,6 +95,13 @@ async function getResponse(user_id: number, question: string) {
   convArray.push(modelConv);
 
   await addConversation(user_id, convArray);
+
+  // If an image URL is available, send it along with the text response
+  if (imageResponse) {
+    // Call sendImage function to send the image
+    await sendImage(ctx, user_id, imageResponse);
+  }
+
   return textResponse.replaceAll("* ", "→ ");
 }
 
@@ -125,6 +134,15 @@ async function getModelInfo() {
 `;
   } catch (err) {
     return "Could not fetch data. Try again later!";
+  }
+}
+
+// Function to send images
+async function sendImage(ctx: Context, userId: number, imageUrl: string) {
+  try {
+    await ctx.api.sendPhoto(userId, imageUrl);
+  } catch (error) {
+    console.error("Error sending image:", error);
   }
 }
 
