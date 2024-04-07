@@ -1,6 +1,6 @@
 import config from "$env";
 import { addConversation, type ConversationPart, getConversations, resetConversation } from "./db.ts";
-import fetch from "node-fetch";
+import fetch from "https://cdn.skypack.dev/node-fetch"; // Import fetch for making HTTP requests
 import { Context } from "grammy/mod.ts"; // Import Context from grammy for sending images
 
 const baseUrl =
