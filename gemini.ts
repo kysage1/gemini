@@ -1,7 +1,7 @@
 import config from "$env";
 import { addConversation, type ConversationPart, getConversations, resetConversation } from "./db.ts";
-import fetch from "node-fetch"; // Import fetch for making HTTP requests
-import { Context } from "grammy"; // Import Context from grammy for sending images
+import fetch from "node-fetch";
+import { Context } from "grammy/mod.ts"; // Import Context from grammy for sending images
 
 const baseUrl =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
