@@ -79,13 +79,17 @@ async function getResponse(ctx: Context, user_id: number, question: string) {
   let imageResponse = ""; // Add a variable to store the image URL
 
   try {
-    const resp = await response.json();
+  const resp = await response.json();
+  if (resp && resp.candidates && resp.candidates.length > 0 && resp.candidates[0].content && resp.candidates[0].content.parts && resp.candidates[0].content.parts[0] && resp.candidates[0].content.parts[0].text) {
     textResponse = resp.candidates[0].content.parts[0].text;
-    imageResponse = resp.candidates[0].content.parts[1].image; // Assuming the API response includes an image URL
-  } catch (err) {
-    console.error("User: ", user_id, "Error: ", err);
-    return "Sorry, I'm having trouble understanding you. Could you please rephrase your question?";
+    imageResponse = resp.candidates[0].content.parts[1]?.image || ""; // Use optional chaining to safely access the image URL
+  } else {
+    throw new Error("Invalid response format");
   }
+} catch (err) {
+  console.error("User: ", user_id, "Error: ", err);
+  return "Sorry, I'm having trouble understanding you. Could you please rephrase your question?";
+}
 
   const modelConv = new Map<string, any>();
   modelConv
