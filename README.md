@@ -25,7 +25,6 @@ OWNERS=owner_id1 owner_id2
 MONGO_URL=mongodb://localhost:27017
 DEFAULT_API_KEY=your_default_api_key
 ```
-```
 
 # For polling mode:
 ```sh
@@ -41,10 +40,12 @@ deno run -A main.ts
 ```sh
 npm install -g pm2
 ```
+
 ```sh
 pm2 start --interpreter=deno main.ts -- --polling
 ```               
                or
+               
 ```sh
 pm2 start --interpreter=deno main.ts
 ```               
